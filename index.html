@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Tuck Frump</title>
+    <style>
+      html, body { background: black; height: 100%; width: 100%; color: white; }
+      body > div { padding-left: 1vw; padding-right: 1vw; text-align: center; margin: auto; margin-top: 25vh; }
+      p { font-size: 8vw; color: white; }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p> Number of days I've lived without a problem involving an illegal immigrant: <span id="days"></span>. </p>
+      <p> and counting...</p>
+    </div>
+    <script>
+      var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+      var firstDate = new Date(1959,12,11);
+      var secondDate = new Date();
+      var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+      var elt = document.querySelector("body > div > p > span");
+      elt.innerHTML = "" + new Intl.NumberFormat().format(diffDays);
+    </script>
+  </body>
+</html>
