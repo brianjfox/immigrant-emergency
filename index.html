@@ -2,23 +2,59 @@
 <html>
   <head>
     <title> Tuck Frump</title>
-    <style>
-      html, body { background: black; height: 100%; width: 100%; color: white; }
-      body > div { padding-left: 1vw; padding-right: 1vw; text-align: center; margin: auto; margin-top: 25vh; }
-      p { font-size: 8vw; color: white; }
-    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
+    <script src="assets/js/moment.js"></script>
+    <script src="assets/js/app.js"></script>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    
   </head>
-  <body>
-    <div>
-      <p> Number of days I've lived without a problem involving an illegal immigrant: <span id="days"></span>. </p>
-      <p> and counting...</p>
-    </div>
+  <body ng-app="eventsApp">
+
+    <!-- Shows -->
+    <section id="shows-section" class="darkgray-bg" style="padding-top: 60px; padding-bottom: 60px;" ng-controller="eventsController">
+      <div class="container">
+        <div class="row">
+	  <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="heading-text">
+              <span class="gold-gradient-color">UPCOMING SHOWS</span>
+            </div>
+	  </div>
+	</div>
+	<ul class="events-list list-unstyled row">
+	  <li ng-repeat="event in events" class="list-item col-sm-6 bar-left">
+	    <img src="assets/images/{{ classname_for_date(event.beg) }}.png" ng-class="classname_for_date(event.beg)" />
+	    <span class="what" ng-click="more_info_or_go_there(event.where)" ng-bind="event.what"></span>
+	    <span class="why" ng-bind="event.why"></span>
+
+	    <div class="when">
+	      <span class="date">{{ event.beg | date: "EEEE, MMMM d, yyyy" }}</span>
+	      <span class="beg">{{ event.beg | date: "h:mma" }}</span>
+	      &nbsp;-&nbsp;
+	      <span class="fin">{{ event.fin | date: "h:mma" }}</span>
+	    </div>
+	    <span class="where" ng-click="go_there(event.where)" ng-bind="event.where.split(',')[0]"></span>
+	    <span class="map-link" ng-click="go_there(event.where)">(directions)</span>
+	  </li>
+	</ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="row">
+	  <div class="col-md-12 col-sm-12 col-xs-12">
+	    <p> Number of days I've lived without a problem involving an illegal immigrant: <span id="days"></span>. And counting...</p>
+	  </div>
+	</div>
+      </div>
+    </section>
     <script>
       var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
       var firstDate = new Date(1959,12,11);
       var secondDate = new Date();
       var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
-      var elt = document.querySelector("body > div > p > span");
+      var elt = document.getElementById("days");
       elt.innerHTML = "" + new Intl.NumberFormat().format(diffDays);
     </script>
   </body>
