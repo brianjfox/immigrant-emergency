@@ -23,6 +23,7 @@ Controllers.controller('eventsController', function($scope, $http) {
     $scope.events = [];
     $scope.update_events_worker(CPB_GoogleCalID);
     $scope.update_events_worker(ARB_GoogleCalID);
+    // setTimeout(function() { $scope.events.sort(function(a, b) { console.log("sorting..."); return (b.beg - a.beg); }); }, 2000);
   }
 
   $scope.update_events_worker = function(cal) {
@@ -56,11 +57,16 @@ Controllers.controller('eventsController', function($scope, $http) {
           break;
       }
 
-      $scope.events.sort(function(a, b) {
-        return (b.beg - a.beg);
+      var x = $scope.events.sort(function(a, b) {
+        var a_beg = new Date(a.beg);
+        var b_beg = new Date(b.beg);
+        var diff = a_beg - b_beg;
+        console.log("diff: " + diff);
+        return (diff);
       });
+      $scope.events = x;
     });
-  };
+  }
 
   $scope.same_day = function(d1, d2) {
     return d1.getFullYear() === d2.getFullYear() &&
