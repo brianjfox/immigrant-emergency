@@ -12,6 +12,7 @@ var Services = angular.module('app.services', []);
 var GoogleAPIKey = "AIzaSyCW10IDscwwYD28SlzMUU_h8cC7XohAcZg";
 var CPB_GoogleCalID  = "chillpointband.com_qjnnte2ajcvdk5f6b5fjqt7cog@group.calendar.google.com";
 var ARB_GoogleCalID = "c_h3vgp0hj358ej3etno8na48v6o@group.calendar.google.com";
+var GIG_GoogleCalID = "opuslogica.com_ar9ls1sjhuj75hg5oiho0qostg@group.calendar.google.com";
 App.requires.push('app.controllers');
 App.requires.push('app.factories');
 App.requires.push('app.services');
@@ -23,7 +24,7 @@ Controllers.controller('eventsController', function($scope, $http) {
     $scope.events = [];
     $scope.update_events_worker(CPB_GoogleCalID);
     $scope.update_events_worker(ARB_GoogleCalID);
-    // setTimeout(function() { $scope.events.sort(function(a, b) { console.log("sorting..."); return (b.beg - a.beg); }); }, 2000);
+    $scope.update_events_worker(GIG_GoogleCalID);
   }
 
   $scope.update_events_worker = function(cal) {
@@ -61,7 +62,6 @@ Controllers.controller('eventsController', function($scope, $http) {
         var a_beg = new Date(a.beg);
         var b_beg = new Date(b.beg);
         var diff = a_beg - b_beg;
-        console.log("diff: " + diff);
         return (diff);
       });
       $scope.events = x;
